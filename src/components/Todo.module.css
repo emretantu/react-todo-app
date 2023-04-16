@@ -1,0 +1,37 @@
+.todo {
+  width: 20em;
+  padding: 0;
+  border: 0.1em solid hsl(0, 0%, 85%);
+  border-radius: 1em;
+  
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+
+  background-color: hsl(0, 0%, 99%);
+  box-shadow: 0 0.5em 1em hsl(0, 0%, 50%);
+
+  font-size: 1.4rem; /*Relative sizes...*/
+
+  overflow: hidden;
+  list-style: none;
+  user-select: none;
+}
+
+.todo__list-item {
+  padding: 1em;
+  width: 100%;
+  color: hsl(0, 0%, 30%);
+  cursor: pointer;
+}
+
+.todo__list-item:hover {
+  color: black;
+  background-color: hsl(0, 0%, 85%);
+}
+
+.todo__list-item--done {
+  text-decoration-style: wavy;
+  text-decoration-line: line-through;
+}
