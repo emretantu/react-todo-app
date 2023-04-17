@@ -13,8 +13,6 @@ const Todo = ({ list }) => {
     )
   }
 
-  console.log(dataList);  
-
   return (
     <ul className={classes.todo}>
       {dataList.map(item => <ListItem key={item.id} itemData={item} onChangingDone={handlerDone} />)}
