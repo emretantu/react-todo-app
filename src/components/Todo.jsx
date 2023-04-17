@@ -3,26 +3,37 @@ import classes from "./Todo.module.css"
 
 const Todo = ({ list }) => {
 
-  const [listData, setListData] = useState(list);
+  const [dataList, setDataList] = useState(list);
+
+  const handlerDone = (itemData) => {
+    setDataList(
+      dataList.map(
+        (item) => item === itemData ? {...item, isDone: !item.isDone} : item
+      )
+    )
+  }
+
+  console.log(dataList);  
 
   return (
     <ul className={classes.todo}>
-      {listData.map(item => <ListItem key={item.id} itemData={item} />)}
+      {dataList.map(item => <ListItem key={item.id} itemData={item} onChangingDone={handlerDone} />)}
     </ul>
   );
 
 }
 
-const ListItem = ({ itemData }) => {
+const ListItem = ({ itemData, onChangingDone }) => {
 
-  const [isDone, setIsDone] = useState(itemData.isDone);
-  const handlerIsDone = setIsDone.bind(null, (prevIsDone) => !prevIsDone);
+  const clicked = () => {
+    onChangingDone(itemData);
+  }
 
   return (
     <li
-      className={ `${classes["todo__list-item"]} ${isDone ? classes["todo__list-item--done"] : ""}` }
+      className={ `${classes["todo__list-item"]} ${itemData.isDone ? classes["todo__list-item--done"] : ""}` }
       draggable = {true}
-      onClick={handlerIsDone}
+      onClick={clicked}
     >
         {itemData.title}
     </li>
