@@ -32,7 +32,7 @@
 }
 
 .todo__list-item--done {
-  text-decoration-style: wavy;
+  text-decoration-style: solid;
   text-decoration-line: line-through;
 }
 

@@ -11,4 +11,6 @@ This is a simple todo list app.
 - [ ] Custom scrollbar when there are too many list items
 - [ ] Drag and drop reordering feature
 - [ ] Storing data in client-side local storage
+- [ ] Register and login
 - [ ] Storing data in server-side database with Node.js and possibly Postgres
+- [ ] Themes (custom animated status bars included)

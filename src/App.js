@@ -6,10 +6,16 @@ import { useState } from "react"
 function App() {
 
   const INITIAL_LIST = [
-    {title: "Todo 1", isDone: false},
-    {title: "Todo 2", isDone: false},
-    {title: "Todo 3", isDone: true},
-    {title: "Todo 4", isDone: false},
+    {title: "Creating basic todo list", isDone: true},
+    {title: "Dynamic status message", isDone: true},
+    {title: "Item placeholders", isDone: true},
+    {title: "Creating todo list item feature", isDone: false},
+    {title: "Custom scrollbar when there are too many list items", isDone: false},
+    {title: "Drag and drop reordering feature", isDone: false},
+    {title: "Storing data in client-side local storage", isDone: false},
+    {title: "Register and login", isDone: false},
+    {title: "Storing data in server-side database with Node.js and possibly Postgres", isDone: false},
+    {title: "Themes (custom animated status bars included)", isDone: false},
   ];
 
   const [dataList, setDataList] = useState(INITIAL_LIST);
