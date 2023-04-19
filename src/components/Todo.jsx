@@ -5,18 +5,22 @@ const Todo = ({ list, onChangingDone }) => {
 
   return (
     <ul className={classes.todo}>
-      {list.map((item, index) => <ListItem key={index} itemData={item} onChangingDone={onChangingDone} order={index} />)}
+      {list.map((item, index) => {
+        return <>
+          <Placeholder order={index} />
+          <ListItem key={index} itemData={item} onChangingDone={onChangingDone} order={index} />
+        </>
+      })}
       <Placeholder order={list.length} />
     </ul>
   );
 
 }
 
-const ListItem = ({ itemData, onChangingDone, order }) => {
+const ListItem = ({ itemData, onChangingDone }) => {
 
   return (
     <>
-      <Placeholder order={order} />
       <li
         className={ `${classes["todo__list-item"]} ${itemData.isDone ? classes["todo__list-item--done"] : ""}` }
         draggable={true}
