@@ -7,6 +7,7 @@ This is a simple todo list app.
 - [x] Creating basic todo list
 - [ ] Dynamic status message
 - [ ] Creating todo list item feature
+- [ ] Custom scrollbar when there are too many list items
 - [ ] Drag and drop reordering feature
 - [ ] Storing data in client-side local storage
 - [ ] Storing data in server-side database with Node.js and possibly Postgres

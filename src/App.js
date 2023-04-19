@@ -1,5 +1,6 @@
 import './App.css';
 import Todo from './components/Todo';
+import { useState } from "react"
 
 function App() {
 
@@ -10,8 +11,20 @@ function App() {
     {id: 4, title: "Todo 4", isDone: false},
   ];
 
+  const [dataList, setDataList] = useState(INITIAL_LIST);
+
+  const handleDone = (itemData) => {
+    setDataList(
+      dataList.map(
+        (item) => item === itemData ? {...item, isDone: !item.isDone} : item
+      )
+    )
+  }
+
   return (
-    <Todo list={INITIAL_LIST} />
+    <>
+      <Todo list={dataList} onChangingDone={handleDone} />
+    </>
   );
 }
 
