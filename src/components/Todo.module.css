@@ -1,5 +1,5 @@
 .todo {
-  width: 20em;
+  width: 100%;
   padding: 0;
   border: 0.1em solid hsl(0, 0%, 85%);
   border-radius: 1em;
@@ -23,7 +23,7 @@
 
 .todo__list-item:hover {
   color: black;
-  background-color: hsl(0, 0%, 85%);
+  background-color: hsl(0, 0%, 90%);
 }
 
 .todo__list-item--done {

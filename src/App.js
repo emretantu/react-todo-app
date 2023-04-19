@@ -1,5 +1,6 @@
 import './App.css';
 import Todo from './components/Todo';
+import TodoStatus from './components/TodoStatus';
 import { useState } from "react"
 
 function App() {
@@ -21,8 +22,14 @@ function App() {
     )
   }
 
+  const status = {
+    size: dataList.length,
+    completed: dataList.reduce((acc, item) => item.isDone ? ++acc : acc, 0),
+  }
+
   return (
     <>
+      <TodoStatus status={status} />
       <Todo list={dataList} onChangingDone={handleDone} />
     </>
   );
