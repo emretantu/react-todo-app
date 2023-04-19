@@ -6,6 +6,7 @@ This is a simple todo list app.
 
 - [x] Creating basic todo list
 - [x] Dynamic status message
+- [x] Item placeholders
 - [ ] Creating todo list item feature
 - [ ] Custom scrollbar when there are too many list items
 - [ ] Drag and drop reordering feature
