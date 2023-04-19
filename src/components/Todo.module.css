@@ -37,18 +37,19 @@
 }
 
 .placeholder {
-  --transition-time: 0.6s;
-  position: absolute;
+  --transition-time: 0.2s;
   width: 100%;
   height: 0.1rem;
   background-color: var(--clr-background);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-color var(--transition-time);
+  transition: all var(--transition-time);
 }
+
 .placeholder--show {
   background-color: var(--clr-border);
+  height: 0.5rem;
 }
 
 .placeholder__button {
@@ -57,8 +58,8 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 2rem;
+  height: 2rem;
   border: 0.1rem solid var(--clr-border);
   border-radius: 100%;
   background-color: var(--clr-background);
