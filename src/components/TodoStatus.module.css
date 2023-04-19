@@ -1,0 +1,24 @@
+div {
+  border-radius: 100rem;
+  width: 100%;
+  height: 2rem;
+}
+
+.status-bar {
+  display: grid;
+  border: 1px solid #666;
+  background-image: linear-gradient(to right, #dfdfdf, #e9e9e9);
+  overflow: hidden;
+}
+
+.status-progress {
+  background-image: linear-gradient(to right, #545454, #777);
+  width: var(--progress);
+  transition: width 1.6s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  color: white;
+  font-weight: bold;
+}
