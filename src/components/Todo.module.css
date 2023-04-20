@@ -20,10 +20,13 @@
 }
 
 .todo__list-item {
-  padding: 1em;
+  padding: 1rem;
   width: 100%;
+  height: 4rem;
   color: hsl(0, 0%, 30%);
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .todo__list-item:hover {
@@ -51,23 +54,36 @@
 
 .placeholder--show {
   background-color: var(--clr-border);
-  height: 2.2rem;
+  padding: 0.6rem;
+  height: auto;
   cursor: default;
 }
 
+.placeholder__input {
+  display: none;
+  width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  outline: none;
+}
+
+.placeholder__input--show {
+  display: block;
+}
+
 .placeholder__button {
-  position: absolute;
-  z-index: 100;
   display: none;
   width: 2rem;
   height: 2rem;
-  font-size: 1rem;
+  font-size: 1.6rem;
   justify-content: center;
   align-items: center;
   border: 0.1rem solid var(--clr-border);
   border-radius: 100%;
   background-color: var(--clr-background);
   cursor: pointer;
+  color: #666;
   
   /* transition: opacity var(--transition-time); */
 }
@@ -89,6 +105,6 @@
     opacity: 1;
     width: 2rem;
     height: 2rem;
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 }
