@@ -1,6 +1,6 @@
 # To-do List App
 This is a simple todo list app.
-[See the app live](https://master--thriving-conkies-e9800e.netlify.app/)
+[See the app live](https://basic-to-do-app-1.netlify.app/)
 
 ## To-do List :D
 
