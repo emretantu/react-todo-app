@@ -7,7 +7,7 @@ This is a simple todo list app.
 - [x] Creating basic todo list
 - [x] Dynamic status message
 - [x] Item placeholders
-- [ ] To-do list item creation feature
+- [x] To-do list item creation feature
 - [ ] Some functionallities (delete item button, delete all completed items button, sort button, item status badge, quick edit, accordion for long titles like this)
 - [ ] Custom scrollbar when there are too many list items
 - [ ] Drag and drop reordering feature
