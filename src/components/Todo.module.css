@@ -62,6 +62,10 @@
 .placeholder__input {
   display: none;
   width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  outline: none;
 }
 
 .placeholder__input--show {
@@ -72,13 +76,14 @@
   display: none;
   width: 2rem;
   height: 2rem;
-  font-size: 1rem;
+  font-size: 1.6rem;
   justify-content: center;
   align-items: center;
   border: 0.1rem solid var(--clr-border);
   border-radius: 100%;
   background-color: var(--clr-background);
   cursor: pointer;
+  color: #666;
   
   /* transition: opacity var(--transition-time); */
 }
@@ -100,6 +105,6 @@
     opacity: 1;
     width: 2rem;
     height: 2rem;
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 }

@@ -15,7 +15,9 @@ const TodoStatus = ({ status }) => {
 
   return (
     <div className={ `${classes["rounded-div"]} ${classes["status-bar"]}` }>
-      <div ref={statusRef} className={ `${classes["rounded-div"]} ${classes["status-progress"]}` } style={{width: `${6}%`}}>{`${status.completed} / ${status.size}`}</div>
+      <div ref={statusRef} className={ `${classes["rounded-div"]} ${classes["status-progress"]}` } style={{width: `${6}%`}}>
+      {`${status.completed} / ${status.size}`}
+      </div>
     </div>
   );
 

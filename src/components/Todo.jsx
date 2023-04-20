@@ -30,16 +30,18 @@ const Todo = ({ list }) => {
   console.log(dataList);
 
   return (
-    <ul className={classes.todo}>
+    <>
       <TodoStatus status={status} />
-      {dataList.map((item, index) => {
-        return <Fragment key={index}>
-          <Placeholder order={index} addListItem={addListItem} />
-          <ListItem itemData={item} onChangingDone={handleDone} order={index} />
-        </Fragment>
-      })}
-      <Placeholder key={200} order={dataList.length} addListItem={addListItem} />
-    </ul>
+      <ul className={classes.todo}>
+        {dataList.map((item, index) => {
+          return <Fragment key={index}>
+            <Placeholder order={index} addListItem={addListItem} />
+            <ListItem itemData={item} onChangingDone={handleDone} order={index} />
+          </Fragment>
+        })}
+        <Placeholder key={200} order={dataList.length} addListItem={addListItem} />
+      </ul>
+    </>
   );
 
 }
