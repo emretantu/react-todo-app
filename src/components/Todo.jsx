@@ -1,10 +1,21 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import TodoStatus from "./TodoStatus";
 import classes from "./Todo.module.css"
 
 const Todo = ({ list }) => {
 
   const [dataList, setDataList] = useState(list);
+  const [timeouts, setTimeouts] = useState([]);
+
+  useEffect(() => {
+    timeouts.forEach(timeout => clearTimeout(timeout));
+    setTimeouts([]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataList]);
+
+  function handleAddTimeout(timeout) {
+    timeouts.push(timeout);
+  }
 
   const handleDone = (itemData) => {
     setDataList(
@@ -61,12 +72,12 @@ const Todo = ({ list }) => {
         {dataList.map((item, index) => {
           return (
             <Fragment key={index}>
-              <Placeholder order={index} addListItem={addListItem} />
+              <Placeholder order={index} addListItem={addListItem} addTimeout={handleAddTimeout} />
               <ListItem itemData={item} order={index} onChangingDone={handleDone} onEdit={handleEdit} onDelete={handleDelete} />
             </Fragment>
           )
         })}
-        <Placeholder order={dataList.length} addListItem={addListItem} initial={!dataList.length} />
+        <Placeholder order={dataList.length} addListItem={addListItem} initial={!dataList.length} addTimeout={handleAddTimeout} />
       </ul>
       <TodoButtons>
         <TodoButton buttonCB={handleSort}>Sort</TodoButton>
@@ -187,7 +198,7 @@ const ListItem = ({ itemData, onChangingDone, onDelete, onEdit }) => {
 
 }
 
-const Placeholder = ({ order, addListItem, initial }) => {
+const Placeholder = ({ order, addListItem, initial, addTimeout }) => {
 
   const phRef = useRef();
   const addBtnRef = useRef();
@@ -202,22 +213,24 @@ const Placeholder = ({ order, addListItem, initial }) => {
 
   const handleMouseEnter = () => {
     config.mouseStillHere = true;
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       if(!config.mouseStillHere || config.stillInput) {
         return;
       }
       phRef.current.classList.add(classes["placeholder--show"]);
       addBtnRef.current.classList.add(classes["placeholder__button--show"]);
-    }, config.appearanceDelay)
+    }, config.appearanceDelay);
+    addTimeout(timeout);
   }
 
   const handleMouseLeave = () => {
     config.mouseStillHere = false;
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       if (config.mouseStillHere || config.stillInput) return;
       addBtnRef.current.classList.remove(classes["placeholder__button--show"]);
       phRef.current.classList.remove(classes["placeholder--show"]);
-    }, config.hideDelay)
+    }, config.hideDelay);
+    addTimeout(timeout);
   }
 
   const handleClickCreateBtn = () => {
