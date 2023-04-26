@@ -8,9 +8,19 @@ const Todo = ({ list }) => {
 
   const handleDone = (itemData) => {
     setDataList(
-      dataList.map(
-        (item) => item === itemData ? {...item, isDone: !item.isDone} : item
-      )
+      dataList.map((item) => item === itemData ? {...item, isDone: !item.isDone} : item)
+    )
+  }
+
+  const handleEdit = (itemData, newTitle) => {
+    setDataList(
+      dataList.map((item) => item === itemData ? {...item, title: newTitle} : item)
+    )
+  }
+
+  const handleDelete = (itemData) => {
+    setDataList(
+      dataList.filter((item) => item !== itemData)
     )
   }
 
@@ -27,17 +37,17 @@ const Todo = ({ list }) => {
     completed: dataList.reduce((acc, item) => item.isDone ? ++acc : acc, 0),
   }
 
-  console.log(dataList);
-
   return (
     <>
       <TodoStatus status={status} />
       <ul className={classes.todo}>
         {dataList.map((item, index) => {
-          return <Fragment key={index}>
-            <Placeholder order={index} addListItem={addListItem} />
-            <ListItem itemData={item} onChangingDone={handleDone} order={index} />
-          </Fragment>
+          return (
+            <Fragment key={index}>
+              <Placeholder order={index} addListItem={addListItem} />
+              <ListItem itemData={item} onChangingDone={handleDone} onEdit={handleEdit} onDelete={handleDelete} order={index} />
+            </Fragment>
+          )
         })}
         <Placeholder key={200} order={dataList.length} addListItem={addListItem} />
       </ul>
@@ -46,16 +56,113 @@ const Todo = ({ list }) => {
 
 }
 
-const ListItem = ({ itemData, onChangingDone }) => {
+const ListItem = ({ itemData, onChangingDone, onDelete, onEdit }) => {
+
+  const listItemRef = useRef();
+  const quickButtonsRef = useRef();
+  const listContentTitleRef = useRef();
+  const listContentInputRef = useRef();
+  const editBtnRef = useRef();
+  const deleteBtnRef = useRef();
+
+  const config = {
+    stillInput: false, /*this should always initialize to false*/
+  }
+
+  const handleOnMouseEnter = () => {
+    quickButtonsRef.current.classList.add(classes["quick-buttons--show"]);
+  }
+
+  const handleOnMouseLeave = () => {
+    if(config.stillInput) return;
+    quickButtonsRef.current.classList.remove(classes["quick-buttons--show"]);
+  }
+
+  const handleEditTitle = () => {
+    onEdit(itemData, listContentInputRef.current.value);
+  }
+
+  const handleDeleteItem = () => {
+    if (config.stillInput) {
+      listContentInputRef.current.value = itemData.title;
+      submitInput();
+    } else {
+      onDelete(itemData);
+    }
+  }
+
+  const handleOnClickEditBtn = () => {
+    if (config.stillInput) {
+      submitInput();
+      return;
+    }
+    config.stillInput = true;
+    editBtnRef.current.innerHTML = "check_circle";
+    deleteBtnRef.current.innerHTML = "cancel";
+    quickButtonsRef.current.classList.add(classes["quick-buttons--show"]);
+    listItemRef.current.classList.add(classes["todo__list-item--edit"], classes["todo__list-item--extend"])
+    listContentTitleRef.current.classList.remove(classes["list-content__title--show"]);
+    listContentInputRef.current.classList.add(classes["list-content__input--show"]);
+    listContentInputRef.current.value = itemData.title;
+    listContentInputRef.current.focus();
+  }
+
+  const handleOnBlurInput = () => {
+    
+  }
+
+  const submitInput = () => {
+    config.stillInput = false;
+    editBtnRef.current.innerHTML = "edit";
+    quickButtonsRef.current.classList.remove(classes["quick-buttons--show"]);
+    listItemRef.current.classList.remove(classes["todo__list-item--edit"], classes["todo__list-item--extend"])
+    listContentTitleRef.current.classList.add(classes["list-content__title--show"]);
+    listContentInputRef.current.classList.remove(classes["list-content__input--show"]);
+    handleEditTitle();
+  }
+
+  const handleOnKeyDownInput = (e) => {
+    if(e.code === "Enter") {
+      submitInput();
+    } else if (e.code === "Escape") {
+      listContentInputRef.current.value = itemData.title;
+      submitInput();
+    }
+  }
+
+  const handleOnclickContentTitle = () => {
+    listItemRef.current.classList.toggle(classes["todo__list-item--extend"]);
+  }
 
   return (
     <>
       <li
-        className={ `${classes["todo__list-item"]} ${itemData.isDone ? classes["todo__list-item--done"] : ""}` }
+        ref={listItemRef}
+        className={ `${classes["todo__list-item"]}` }
         draggable={true}
-        onClick={() => {onChangingDone(itemData)}}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
       >
-        {itemData.title}
+
+        <div className={classes["list-content"]}>
+          <span style={{paddingRight: "0.3em"}} className="material-symbols-outlined" onClick={() => {onChangingDone(itemData)}}>
+            { itemData.isDone ? "check_box" : "check_box_outline_blank" }
+          </span>
+          <span ref={listContentTitleRef} className={ `${classes["list-content__title"]} ${classes["list-content__title--show"]} ${itemData.isDone ? classes["list-content__title--done"] : ""}` } onClick={handleOnclickContentTitle}>
+            { itemData.title }
+          </span>
+          <input ref={listContentInputRef} type="text" className={classes["list-content__input"]} onBlur={handleOnBlurInput} onKeyDown={handleOnKeyDownInput} />
+        </div>
+
+        <div ref={quickButtonsRef} className={ `${classes["quick-buttons"]}` }>
+          <span ref={editBtnRef} className={ `${classes["quick-buttons__item"]} material-symbols-outlined` } onClick={handleOnClickEditBtn}>
+            edit
+          </span>
+          <span ref={deleteBtnRef} className={ `${classes["quick-buttons__item"]} material-symbols-outlined` } onClick={handleDeleteItem}>
+            delete
+          </span>
+        </div>
+
       </li>
     </>
   );

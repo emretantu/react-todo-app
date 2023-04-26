@@ -8,7 +8,7 @@ function App() {
     {title: "Dynamic status message", isDone: true},
     {title: "Item placeholders", isDone: true},
     {title: "To-do list item creation feature", isDone: true},
-    {title: "Some functionallities (delete item button, delete all completed items button, sort button, item status badge, quick edit, accordion for long titles like this) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, voluptate. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, voluptate. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, voluptate.", isDone: false},
+    {title: "Some functionallities (delete item button, delete all completed items button, sort button, item status badge, quick edit, accordion for long titles like this) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, voluptate. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, voluptate. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, voluptate.", isDone: true},
     {title: "Custom scrollbar when there are too many list items", isDone: false},
     {title: "Drag and drop reordering feature", isDone: false},
     {title: "Storing data in client-side local storage", isDone: false},

@@ -20,23 +20,82 @@
 }
 
 .todo__list-item {
-  padding: 1rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.7rem 1rem;
   width: 100%;
-  height: 4rem;
   color: hsl(0, 0%, 30%);
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
 }
 
-.todo__list-item:hover {
+.todo__list-item--extend {
+  white-space: normal;
+  padding-right: 7.5rem; /* Mobile ? */
+}
+
+.todo__list-item--edit, .todo__list-item:hover {
   color: black;
   background-color: hsl(0, 0%, 90%);
 }
 
-.todo__list-item--done {
+.list-content {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.list-content__title {
+  width: 100%;
+  display: none;
+}
+
+.list-content__title--show {
+  display: inline;
+}
+
+.list-content__input {
+  display: none;
+  width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  outline: none;
+}
+
+.list-content__input--show {
+  display: block;
+}
+
+.list-content__title--done {
   text-decoration-style: solid;
   text-decoration-line: line-through;
+}
+
+.quick-buttons {
+  display: none;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  padding: 0 1.2rem;
+  background-image: linear-gradient(to left, hsla(0, 0%, 100%, 0.8) 0%, hsla(0, 0%, 98%, 0.5) 85%, hsla(0, 0%, 100%, 0) 100%);
+  backdrop-filter: blur(1.6px);
+}
+
+.quick-buttons__item {
+  padding: 0.5rem;
+  border-radius: 100%;
+}
+
+.quick-buttons__item:is(:hover, :focus-visible) {
+  background-color: hsla(0, 0%, 100%, 0.9);
+}
+
+.quick-buttons--show {
+  display: inline-flex;
 }
 
 .placeholder {
@@ -84,8 +143,6 @@
   background-color: var(--clr-background);
   cursor: pointer;
   color: #666;
-  
-  /* transition: opacity var(--transition-time); */
 }
 
 .placeholder__button--show {
