@@ -26,11 +26,26 @@ const Todo = ({ list }) => {
 
   const addListItem = (order, title) => {
     setDataList(() => {
-      const list = [...dataList]
+      const list = [...dataList];
       list.splice(order, 0, {title: title, isDone: false});
       return list;
     });
   }
+
+  const handleSort = () => {
+    setDataList(() => {
+      const list = [...dataList];
+      list.sort((currItem, prevItem) => {
+        if ((currItem.isDone && prevItem.isDone) || (!currItem.isDone && !prevItem.isDone)) {
+          return 1
+        }
+        return -1;
+      });
+      return list;
+    });
+  }
+
+  
 
   const status = {
     size: dataList.length,
@@ -51,6 +66,9 @@ const Todo = ({ list }) => {
         })}
         <Placeholder key={200} order={dataList.length} addListItem={addListItem} />
       </ul>
+      <TodoButtons>
+        <TodoButton buttonCB={handleSort}>Sort</TodoButton>
+      </TodoButtons>
     </>
   );
 
@@ -107,13 +125,10 @@ const ListItem = ({ itemData, onChangingDone, onDelete, onEdit }) => {
     listContentInputRef.current.focus();
   }
 
-  const handleOnBlurInput = () => {
-    
-  }
-
   const submitInput = () => {
     config.stillInput = false;
     editBtnRef.current.innerHTML = "edit";
+    deleteBtnRef.current.innerHTML = "delete";
     quickButtonsRef.current.classList.remove(classes["quick-buttons--show"]);
     listItemRef.current.classList.remove(classes["todo__list-item--edit"], classes["todo__list-item--extend"])
     listContentTitleRef.current.classList.add(classes["list-content__title--show"]);
@@ -151,7 +166,7 @@ const ListItem = ({ itemData, onChangingDone, onDelete, onEdit }) => {
           <span ref={listContentTitleRef} className={ `${classes["list-content__title"]} ${classes["list-content__title--show"]} ${itemData.isDone ? classes["list-content__title--done"] : ""}` } onClick={handleOnclickContentTitle}>
             { itemData.title }
           </span>
-          <input ref={listContentInputRef} type="text" className={classes["list-content__input"]} onBlur={handleOnBlurInput} onKeyDown={handleOnKeyDownInput} />
+          <input ref={listContentInputRef} type="text" className={classes["list-content__input"]} onKeyDown={handleOnKeyDownInput} />
         </div>
 
         <div ref={quickButtonsRef} className={ `${classes["quick-buttons"]}` }>
@@ -236,6 +251,24 @@ const Placeholder = ({ order, addListItem }) => {
       <button ref={addBtnRef} className={ `${classes["placeholder__button"]}` } onClick={handleClickCreateBtn}>+</button>
       <input ref={inputRef} className={ `${classes["placeholder__input"]}` } type="text" onFocus={onFocusInput} onBlur={onBlurInput} onKeyDown={onKeyDownInput} />
     </div>
+  );
+
+}
+
+const TodoButtons = ({ children }) => {
+  
+  return (
+    <div>
+      {children}
+    </div>
+  );
+
+}
+
+const TodoButton = ({ children, buttonCB }) => {
+  
+  return (
+    <button onClick={buttonCB}>{children}</button>
   );
 
 }
