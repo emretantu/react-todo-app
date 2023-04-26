@@ -56,8 +56,12 @@ const Todo = ({ list }) => {
     });
   }
 
-  const handleClear = () => {
+  const handleClearAll = () => {
     setDataList([]);
+  }
+
+  const handleClearCompleted = () => {
+    setDataList(dataList.filter(data => !data.isDone));
   }
 
   const status = {
@@ -81,7 +85,8 @@ const Todo = ({ list }) => {
       </ul>
       <TodoButtons>
         <TodoButton buttonCB={handleSort}>Sort</TodoButton>
-        <TodoButton buttonCB={handleClear}>Clear</TodoButton>
+        <TodoButton buttonCB={handleClearAll}>Clear All</TodoButton>
+        <TodoButton buttonCB={handleClearCompleted}>Clear Completed</TodoButton>
       </TodoButtons>
     </>
   );
