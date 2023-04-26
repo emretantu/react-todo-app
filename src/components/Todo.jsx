@@ -234,14 +234,14 @@ const Placeholder = ({ order, addListItem, initial }) => {
     config.stillInput = false;
     inputRef.current.classList.remove(classes["placeholder__input--show"]);
     phRef.current.classList.remove(classes["placeholder--show"]);
-    const inputValue = inputRef.current.value;
+    const inputValue = inputRef.current.value.trim();
     if (inputValue) {
       addListItem(order, inputValue);
     }
   }
 
   const onBlurInitialInput = () => {
-    if (!inputRef.current.value) {
+    if (!inputRef.current.value.trim()) {
       inputRef.current.placeholder = "You should write your first to do.";
       return;
     }
