@@ -45,7 +45,9 @@ const Todo = ({ list }) => {
     });
   }
 
-  
+  const handleClear = () => {
+    setDataList([]);
+  }
 
   const status = {
     size: dataList.length,
@@ -60,14 +62,15 @@ const Todo = ({ list }) => {
           return (
             <Fragment key={index}>
               <Placeholder order={index} addListItem={addListItem} />
-              <ListItem itemData={item} onChangingDone={handleDone} onEdit={handleEdit} onDelete={handleDelete} order={index} />
+              <ListItem itemData={item} order={index} onChangingDone={handleDone} onEdit={handleEdit} onDelete={handleDelete} />
             </Fragment>
           )
         })}
-        <Placeholder key={200} order={dataList.length} addListItem={addListItem} />
+        <Placeholder order={dataList.length} addListItem={addListItem} initial={!dataList.length} />
       </ul>
       <TodoButtons>
         <TodoButton buttonCB={handleSort}>Sort</TodoButton>
+        <TodoButton buttonCB={handleClear}>Clear</TodoButton>
       </TodoButtons>
     </>
   );
@@ -184,7 +187,7 @@ const ListItem = ({ itemData, onChangingDone, onDelete, onEdit }) => {
 
 }
 
-const Placeholder = ({ order, addListItem }) => {
+const Placeholder = ({ order, addListItem, initial }) => {
 
   const phRef = useRef();
   const addBtnRef = useRef();
@@ -233,8 +236,16 @@ const Placeholder = ({ order, addListItem }) => {
     phRef.current.classList.remove(classes["placeholder--show"]);
     const inputValue = inputRef.current.value;
     if (inputValue) {
-      addListItem(order, inputRef.current.value);
+      addListItem(order, inputValue);
     }
+  }
+
+  const onBlurInitialInput = () => {
+    if (!inputRef.current.value) {
+      inputRef.current.placeholder = "You should write your first to do.";
+      return;
+    }
+    onBlurInput();
   }
 
   const onKeyDownInput = (e) => {
@@ -246,10 +257,18 @@ const Placeholder = ({ order, addListItem }) => {
     }
   }
 
+  if (initial) {
+    return (
+      <div ref={phRef} className={ `${classes["placeholder"]} ${classes["placeholder--show"]}` }>
+        <input ref={inputRef} type="text" placeholder="Just write your first to do." className={ `${classes["placeholder__input"]} ${classes["placeholder__input--show"]}` } onFocus={onFocusInput} onBlur={onBlurInitialInput} onKeyDown={onKeyDownInput} />
+      </div>
+    );
+  }
+
   return (
     <div ref={phRef} className={ `${classes["placeholder"]}` } onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <button ref={addBtnRef} className={ `${classes["placeholder__button"]}` } onClick={handleClickCreateBtn}>+</button>
-      <input ref={inputRef} className={ `${classes["placeholder__input"]}` } type="text" onFocus={onFocusInput} onBlur={onBlurInput} onKeyDown={onKeyDownInput} />
+      <input ref={inputRef} type="text" className={ `${classes["placeholder__input"]}` } onFocus={onFocusInput} onBlur={onBlurInput} onKeyDown={onKeyDownInput} />
     </div>
   );
 
